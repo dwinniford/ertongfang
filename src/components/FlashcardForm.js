@@ -9,6 +9,9 @@ export default function FlashCardForm() {
             back: event.target.back.value
         }
         console.log(data)
+        fetch('http://localhost:7777/flashcards', { method: 'POST', body: JSON.stringify(data)})
+            .then(res => res.json())
+            .then(json => console.log(json))
     }
     
     return (
