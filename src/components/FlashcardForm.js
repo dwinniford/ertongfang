@@ -8,8 +8,14 @@ export default function FlashCardForm() {
             front: event.target.front.value,
             back: event.target.back.value
         }
-        console.log(data)
-        fetch('http://localhost:7777/flashcards', { method: 'POST', body: JSON.stringify(data)})
+        const configObj = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+        fetch('http://localhost:7777/flashcards', configObj)
             .then(res => res.json())
             .then(json => console.log(json))
     }
