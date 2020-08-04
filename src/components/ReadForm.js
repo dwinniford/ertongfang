@@ -5,6 +5,7 @@ import AWS from 'aws-sdk'
 
 export default function ReadForm() {
     const [text, setText] = useState('What would you like me to say?')
+    const [audioSource, setAudioSource] = useState('')
     
     // const onReadSubmit = (event) => {
     //     event.preventDefault()
@@ -14,20 +15,33 @@ export default function ReadForm() {
     // }
 
     AWS.config.region = process.env.REACT_APP_AWS_REGION; 
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: process.env.REACT_APP_AWS_REGION});
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID});
         
         // Function invoked by button click
     const speakText = () => {
         // Create the JSON parameters for getSynthesizeSpeechUrl
-        var speechParams = {
+        const speechParams = {
             OutputFormat: "mp3",
             SampleRate: "16000",
             Text: "",
-            TextType: "text",
+            TextType: text,
             VoiceId: "Matthew"
         };
         speechParams.Text = "Sample Text";
+        const polly = new AWS.Polly() // need {apiVersion: '2016-06-10'} ?
+        const signer = new AWS.Polly.Presigner(speechParams, polly)
+        signer.getSynthesizeSpeechUrl(speechParams, function(error, url) {
+            if (error) {
+                document.getElementById('result').innerHTML = error;
+            } else {
+                setAudioSource(url);
+                document.getElementById('audioPlayback').load();
+                document.getElementById('result').innerHTML = "Speech ready to play.";
+            }
+        })
     }
+
+
 
     const handleInputChange = (event) => {
         setText(event.target.value)
@@ -37,11 +51,11 @@ export default function ReadForm() {
         <div>
             <div id="textToSynth">
                 <input onChange={event => handleInputChange(event)} autoFocus size="23" type="text" id="textEntry" value={text}/>
-                <button className="btn default" onClick={speakText()}>Synthesize</button>
+                <button className="btn default" onClick={() => speakText()}>Synthesize</button>
                 <p id="result">Enter text above then click Synthesize</p>
             </div>
             <audio id="audioPlayback" controls>
-                <source id="audioSource" type="audio/mp3" src="" />
+                <source id="audioSource" type="audio/mp3" src={audioSource} />
             </audio>
             {/* <script src="https://sdk.amazonaws.com/js/aws-sdk-2.726.0.min.js"></script> */}
         </div>
