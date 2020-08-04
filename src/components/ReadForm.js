@@ -4,7 +4,7 @@ import AWS from 'aws-sdk'
 
 
 export default function ReadForm() {
-    const [text, setText] = useState('waiting for reading to start')
+    const [text, setText] = useState('What would you like me to say?')
     
     // const onReadSubmit = (event) => {
     //     event.preventDefault()
@@ -29,11 +29,15 @@ export default function ReadForm() {
         speechParams.Text = "Sample Text";
     }
 
+    const handleInputChange = (event) => {
+        setText(event.target.value)
+    }
+
     return (
         <div>
             <div id="textToSynth">
-                <input autofocus size="23" type="text" id="textEntry" value="It's very good to meet you."/>
-                <button class="btn default" onClick={speakText()}>Synthesize</button>
+                <input onChange={event => handleInputChange(event)} autoFocus size="23" type="text" id="textEntry" value={text}/>
+                <button className="btn default" onClick={speakText()}>Synthesize</button>
                 <p id="result">Enter text above then click Synthesize</p>
             </div>
             <audio id="audioPlayback" controls>
