@@ -9,7 +9,7 @@ export default function ReadForm() {
     const [result, setResult] = useState("Enter text above then click Synthesize")
 
     const audioRef = useRef(null)
-
+    // should these credentials be setup in index.js?
     AWS.config.region = process.env.REACT_APP_AWS_REGION; 
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({IdentityPoolId: process.env.REACT_APP_IDENTITY_POOL_ID});
         
@@ -30,9 +30,7 @@ export default function ReadForm() {
                 setResult(error);
             } else {
                 setAudioSource(url);
-                // document.getElementById('audioPlayback').load();
                 audioRef.current.load()
-                // is this a good use case for a ref
                 setResult("Speech ready to play.");
             }
         })
