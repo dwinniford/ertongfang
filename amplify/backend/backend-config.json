@@ -1,0 +1,10 @@
+{
+	"auth": {
+		"ertongfang8aeb6031": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}

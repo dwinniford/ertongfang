@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-ertongfang-dev-100344-authRole",
+            "UnauthRoleArn": "arn:aws:iam::336834225563:role/amplify-ertongfang-dev-100344-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::336834225563:role/amplify-ertongfang-dev-100344-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-ertongfang-dev-100344-deployment",
+            "UnauthRoleName": "amplify-ertongfang-dev-100344-unauthRole",
+            "StackName": "amplify-ertongfang-dev-100344",
+            "StackId": "arn:aws:cloudformation:us-east-1:336834225563:stack/amplify-ertongfang-dev-100344/cf7350f0-d8b6-11ea-a3d7-0e4c53e0aefd",
+            "AmplifyAppId": "d37kvz6b23t0wm"
+        },
+        "categories": {
+            "auth": {
+                "ertongfang8aeb6031": {}
+            }
+        }
+    }
+}
